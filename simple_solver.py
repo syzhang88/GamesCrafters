@@ -35,7 +35,7 @@ def do_moves(pos, move):
 #Simple Solver
 
 def simple_solver(init, prim, gen, do):
-    """Returns whether or not Player 1 can win inputted game from given initial
+    """Returns whether or not the current player can win inputted game from given initial
     position.
 
     >>> simple_solver(initial_position, primitive, gen_moves, do_moves)
@@ -53,8 +53,8 @@ def simple_solver(init, prim, gen, do):
         current_state += [do(i, m) for m in gen(i)]
         turn = 3 - turn
     if win > 0 and lose > 0:
-        return "Player 1 is currently at a tie."
+        return "This position is currently at a tie; the player can still either lose or win."
     elif win > 0:
-        return "Player 1 has won."
+        return "This is a winning position."
     else:
-        return "Player 1 has lost."
+        return "This is a losing position."
