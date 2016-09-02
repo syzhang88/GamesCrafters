@@ -39,7 +39,7 @@ def simple_solver(init, prim, gen, do):
     position.
 
     >>> simple_solver(initial_position, primitive, gen_moves, do_moves)
-    "Player 1 is currently at a tie." """
+    "This position is currently at a tie; the player can still either lose or win." """
     current_state = [init()]
     turn = 1
     win = 0
