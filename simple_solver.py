@@ -32,11 +32,39 @@ def gen_moves(pos):
 def do_moves(pos, move):
     return pos - move
 
+#Game Tree
+
+class gameTree:
+    def __init__(self, position, branches = []):
+        for b in branches:
+            assert isinstance(b, gameNode)
+        self.position = position
+        self.branches = branches
+
+    def __len__(self):
+        return 1 + max([len(b) for b in self.branches])
+
+    def __repr__(self):
+        if self.rest:
+            branches_str = ', ' + repr(self.branches)
+        else:
+            branches_str = ''
+        return 'gameTree({0}{1})'.format(self.position, self.branches_str)
+
+    def position(self):
+        return self.pos
+    def is_leaf(self):
+        return not self.branches
+
 #Simple Solver
+def simple_solver(init, prim, gen, do):
+    #generate tree with iterative loop
+    #go back up tree, adding W/L: W if L for one of its branches; else, L.
+    #return W/L value of root
 
 def simple_solver(init, prim, gen, do):
-    """Returns whether or not the current player can win inputted game from given initial
-    position.
+    """Returns whether or not the current player can win from a given
+    initial position, with the given game parameters.
 
     >>> simple_solver(initial_position, primitive, gen_moves, do_moves)
     "This position is currently at a tie; the player can still either lose or win." """
