@@ -1,61 +1,51 @@
+
 class gameTree:
     empty = []
 
-    def __init__(self, position, branches = empty):
+    def __init__(self, position, parent = None, branches = empty):
+        assert isinstance(position, int)
+        assert isinstance(parent, gameTree) or parent == None
         for b in branches:
-            assert isinstance(b, gameNode)
+            assert isinstance(b, gameTree)
         self.position = position
-        self.status = "Game is undecided at current position."
+        self.parent = parent
         self.branches = branches
+        self.status = "Undecided"
 
-    def __len__(self):
-        return 1 + max([len(b) for b in self.branches])
-
-    def __repr__(self):
-        if self.rest:
-            branches_str = ', ' + repr(self.branches)
-        else:
-            branches_str = ''
-        return 'gameTree({0}{1})'.format(self.status, self.branches_str)
-
-    def position(self):
+    def getPosition(self):
         return self.position
 
-    def status(self):
-        return self.status
+    def getParent(self):
+        return self.parent
 
-    def branches(self):
+    def getBranches(self):
         return self.branches
 
+    def getStatus(self):
+        return self.status
+
     def newStatus(self, s):
-        assert isinstance(s, string)
+        assert s == "Loss" or s == "Win" or "Undecided" or "Tie"
         self.status = s
+        currParent = self.parent
+        while currParent:
+            currStatus = "Loss"
+            for b in currParent.getBranches():
+                if b.getStatus() == "Loss":
+                    currStatus = "Win"
+                if b.getStatus() == "Undecided":
+                    return
+            currParent.newStatus(currStatus)
+            currParent =  currParent.getParent()
 
     def newBranch(self, b):
-        assert isinstance(b, gameNode)
+        assert isinstance(b, gameTree)
         self.branches += [b]
 
     def newBranches(self, branches = []):
         for b in branches:
-            assert isinstance(b, gameNode)
-        self.branches += branches
+            assert isinstance(b, gameTree)
+        self.branches = branches
 
     def is_leaf(self):
         return not self.branches
-
-#Simple Solver
-
-def simple_solver(init, prim, gen, do):
-    #generate tree with iterative loop
-    #go back up tree, adding W/L: W if L for one of its branches; else, L.
-    #return W/L value of root
-    root = gameTree(init())
-    pos = root.position()
-    root.newBranches([gameTree(do(pos, move)) for move in gen(pos)])
-
-    current = root
-    for b in root.branches():
-        pos = b.position()
-        b.newBranches([gameTree(do(pos, move)) for move in gen(pos)])
-
-    return root.status
