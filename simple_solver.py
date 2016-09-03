@@ -47,9 +47,6 @@ class gameTree:
         self.branches = branches
         self.status = "Undecided"
 
-    # def __repr__(self):
-    #     return 'g'
-
     def getPosition(self):
         return self.position
 
@@ -63,7 +60,6 @@ class gameTree:
         return self.status
 
     def newStatus(self, s):
-        # print(self.parent)
         assert s == "Loss" or s == "Win" or "Undecided" or "Tie"
         self.status = s
         currParent = self.parent
