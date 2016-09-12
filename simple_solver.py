@@ -1,4 +1,10 @@
 """
+***Updates to be added after 9/12/16***
+- memoization with table
+- invalid input checker
+- draw checker
+- tie primitive
+
 Game: 4 to 0.
 Players: two.
 Objective: Each player choose to subtract either 1 or 2 from the current number,
@@ -60,7 +66,7 @@ class gameTree:
         return self.status
 
     def newStatus(self, s):
-        assert s == "Loss" or s == "Win" or "Undecided" or "Tie"
+        assert s == "Loss" or s == "Win" or s == "Undecided" or s == "Tie"
         self.status = s
         currParent = self.parent
         while currParent:
@@ -68,6 +74,7 @@ class gameTree:
             for b in currParent.getBranches():
                 if b.getStatus() == "Loss":
                     currStatus = "Win"
+                    break
                 if b.getStatus() == "Undecided":
                     return
             currParent.newStatus(currStatus)
@@ -85,6 +92,8 @@ class gameTree:
     def is_leaf(self):
         return not self.branches
 
+#Simple Solver
+
 def simple_solver(init, prim, gen, do):
     """Returns whether or not the current player is in a winning
     initial position, with the given game parameters.
@@ -93,7 +102,7 @@ def simple_solver(init, prim, gen, do):
 
     currMoves = [root]
     i = 0
-    while i < len(currMoves) and i < 20:
+    while i < len(currMoves):
         node = currMoves[i]
         pos = node.getPosition()
         if prim(pos):
@@ -102,6 +111,6 @@ def simple_solver(init, prim, gen, do):
         currMoves = currMoves + node.getBranches()
         i += 1
 
-    return root.status
+    return root.getStatus()
 
 print(simple_solver(initial_position, primitive, gen_moves, do_moves))
