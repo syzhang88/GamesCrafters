@@ -1,9 +1,9 @@
 """
 ***Updates to be added after 9/12/16***
 - memoization with table (added 9/14/16)
-- invalid input checker
+- invalid input checker (added 9/14/16)
 - draw checker
-- tie primitive
+- tie primitive (added 9/14/16)
 
 Game: 4 to 0.
 Players: two.
@@ -36,6 +36,7 @@ def gen_moves(pos):
     return possible_moves
 
 def do_moves(pos, move):
+    assert pos - move >= 0
     return pos - move
 
 #Game Tree
