@@ -80,18 +80,6 @@ class gameTree:
     def newStatus(self, s):
         assert s == "Loss" or s == "Win" or s == "Undecided" or s == "Tie" or s == "Draw"
         gameTree.memo[self.position] = s
-        # self.status = s
-        # currParent = self.parent
-        # while currParent:
-        #     currStatus = "Loss"
-        #     for b in currParent.getBranches():
-        #         if b.getStatus() == "Loss":
-        #             currStatus = "Win"
-        #             break
-        #         if b.getStatus() == "Undecided":
-        #             return
-        #     currParent.newStatus(currStatus)
-        #     currParent =  currParent.getParent()
 
     def newBranch(self, b):
         assert isinstance(b, gameTree)
