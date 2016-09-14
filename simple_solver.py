@@ -7,7 +7,7 @@
 
 Game: 4 to 0.
 Players: two.
-Objective: Each player choose to subtract either 1 or 2 from the current number,
+Objective: each player choose to subtract either 1 or 2 from the current number,
 starting at 4, before passing the new number onto the other player. The player
 that *receives* the number 0 from the last player loses.
 
