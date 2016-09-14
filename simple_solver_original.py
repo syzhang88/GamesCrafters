@@ -1,9 +1,5 @@
 """
-***Updates to be added after 9/12/16***
-- memoization with table (added 9/14/16)
-- invalid input checker
-- draw checker
-- tie primitive
+***Original Simple Solver (saved 9/12/16)***
 
 Game: 4 to 0.
 Players: two.
@@ -41,7 +37,6 @@ def do_moves(pos, move):
 #Game Tree
 
 class gameTree:
-    memo = {}
     empty = []
 
     def __init__(self, position, parent = None, branches = empty):
@@ -52,6 +47,7 @@ class gameTree:
         self.position = position
         self.parent = parent
         self.branches = branches
+        self.status = "Undecided"
 
     def getPosition(self):
         return self.position
@@ -63,35 +59,22 @@ class gameTree:
         return self.branches
 
     def getStatus(self):
-        if not gameTree.memo.get(self.position):
-            status = "Loss"
-            for branch in self.branches:
-                if not gameTree.memo.get(branch.position):
-                    branch.getStatus()
-                if gameTree.memo[branch.position] == "Loss":
-                    status = "Win"
-                elif gameTree.memo[branch.position] == "Tie":
-                    status = "Tie"
-                elif gameTree.memo[branch.position] == "Undecided":
-                    status = "Undecided"
-            self.newStatus(status)
-        return gameTree.memo[self.position]
+        return self.status
 
     def newStatus(self, s):
-        assert s == "Loss" or s == "Win" or s == "Undecided" or s == "Tie" or s == "Draw"
-        gameTree.memo[self.position] = s
-        # self.status = s
-        # currParent = self.parent
-        # while currParent:
-        #     currStatus = "Loss"
-        #     for b in currParent.getBranches():
-        #         if b.getStatus() == "Loss":
-        #             currStatus = "Win"
-        #             break
-        #         if b.getStatus() == "Undecided":
-        #             return
-        #     currParent.newStatus(currStatus)
-        #     currParent =  currParent.getParent()
+        assert s == "Loss" or s == "Win" or s == "Undecided" or s == "Tie"
+        self.status = s
+        currParent = self.parent
+        while currParent:
+            currStatus = "Loss"
+            for b in currParent.getBranches():
+                if b.getStatus() == "Loss":
+                    currStatus = "Win"
+                    break
+                if b.getStatus() == "Undecided":
+                    return
+            currParent.newStatus(currStatus)
+            currParent =  currParent.getParent()
 
     def newBranch(self, b):
         assert isinstance(b, gameTree)
