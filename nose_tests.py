@@ -1,13 +1,8 @@
 import nose
-from simple_solver import simple_solver
+from simple_solver import simple_solver, primitive,
 
 def initial_position():
     return pos
-
-def primitive(pos):
-    if pos <= 0:
-        return True
-    return False
 
 def gen_moves(pos):
     if pos == 0:
@@ -15,11 +10,6 @@ def gen_moves(pos):
     if checker(pos):
         return [a]
     return [a, b]
-
-def do_moves(pos, move):
-    assert pos + move >= 0
-    return pos + move
-
 
 pos = 1
 checker = lambda x: pos == 0

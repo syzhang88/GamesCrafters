@@ -30,14 +30,14 @@ def primitive(pos):
 def gen_moves(pos):
     possible_moves = []
     if pos - 1 >= 0:
-        possible_moves += [1]
+        possible_moves += [-1]
     if pos - 2 >= 0:
-        possible_moves += [2]
+        possible_moves += [-2]
     return possible_moves
 
 def do_moves(pos, move):
-    assert pos - move >= 0
-    return pos - move
+    assert pos + move >= 0
+    return pos + move
 
 #Game Tree
 
