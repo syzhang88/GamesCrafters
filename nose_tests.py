@@ -11,20 +11,19 @@ def gen_moves(pos):
         return [a]
     return [a, b]
 
-pos = 1
+
+#tests to see that the basic 4-0 game still works once draw is implemented
+
+pos = 4
 checker = lambda x: pos == 0
 a, b = -1, -2
+
 
 def test_win():
     result = simple_solver(initial_position, primitive, gen_moves, do_moves)
     assert result == "Win"
 
-pos = 4
-a, b = -1, -2
-
-def test_lose():
-    result = simple_solver(initial_position, primitive, gen_moves, do_moves)
-    assert result == "Win"
+#tests to see that DRAW works for infinite loops
 
 checker = lambda x: False
 a, b = -1, 1
@@ -34,6 +33,8 @@ def test_draw():
     assert result == "Draw"
 
 a, b = 1, 2
+
+#tests to see that DRAW works for unending game states that are not loops
 
 def test_draw2():
     result = simple_solver(initial_position, primitive, gen_moves, do_moves)
