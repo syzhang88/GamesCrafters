@@ -1,5 +1,5 @@
 import nose
-from simple_solver import simple_solver, primitive,
+from simple_solver import simple_solver, primitive, do_moves
 
 def initial_position():
     return pos
