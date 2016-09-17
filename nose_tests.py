@@ -11,7 +11,6 @@ def gen_moves(pos):
         return [a]
     return [a, b]
 
-
 #tests to see that the basic 4-0 game still works once draw is implemented
 
 pos = 4
